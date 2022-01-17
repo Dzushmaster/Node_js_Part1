@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>10-01</title>
+        <link rel="icon" href="data:,">
+    </head>
+    <body>
+        <h1>Lab 10-01</h1>
+        <script>
+            let k = 0;
+            function startWS(){
+                let socket = new WebSocket('ws:/localhost:4000/wsserver');
+                socket.onopen = ()=>{
+                    console.log('socket.onopen');
+                    let idInterval = setInterval(()=>{socket.send(`10-01-client: ${++k}`);}, 3000);
+                    setTimeout(()=>
+                    {
+                        clearInterval(idInterval);
+                        console.log('connection closed');socket.close()
+                    }, 25000);
+                };
+                socket.onclose = (e)=>{console.log('socket.onclose', e);};
+                socket.onmessage = (e)=>{console.log('socket.onmessage', e.data);};
+                socket.onerror = function(e){alert('Error: ' + e.message);};
+            };
+        </script>
+        <button onclick="startWS()">startWS</button>
+    </body>
+</html>

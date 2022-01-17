@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>node 14</title>
+        <style type="text/css">
+            #status {
+                margin: auto;
+                margin-top: 20px;
+                padding: 10px 20px;
+                width: fit-content;
+                min-width: 300px;
+                text-align: center;
+                display: none;
+            }
+            .row {
+                margin-bottom: 20px;
+            }
+            #status {
+                margin: auto;
+                margin-top: 20px;
+                padding: 10px 20px;
+                width: fit-content;
+                min-width: 300px;
+                text-align: center;
+                display: none;
+            }
+
+        </style>
+        <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    </head>
+    <body>
+        <h1>task 14-03</h1>
+        <button id="get">GET</button>
+        <div>
+            <label>PULPIT:</label><br/>
+            <input type="text" class="col-3" id="PULPIT"/>
+        </div>
+        <div>
+            <label>PULPIT_NAME:</label><br/>
+            <input type="text" class="col-3" id="PULPIT_NAME"/>
+        </div>
+        <div>
+            <label>FACULTY:</label><br/>
+            <input type="text" class="col-3" id="FACULTY"/>
+        </div>
+        <div>
+            <button id="post">POST</button>
+            <button id="put">PUT</button>
+            <button id="delete">DELETE</button>
+        </div>
+        <div id="result" content=""></div>
+        <div id="status"><br></div>
+    </body>
+    <script>
+        $(document).ready(function() {
+            $("#get").click(function() {
+                $('#status').css("display","block");
+
+                fetch('http://localhost:4000/api/pulpits', {
+                    method: 'GET',
+                    headers: {'Accept': 'application/json'}
+                }).then((response) => {
+                    return response.json();
+                }).then(pdata => {
+                    console.log('pdata', pdata);
+                    $("#status").html('');
+                    pdata.forEach(element => {
+                        $("#status").append('<div class="el"><span>PULPIT: </span>' + element.PULPIT + '</br><span> PULPIT_NAME: </span>' + element.PULPIT_NAME + '</br><span> FACULTY: </span>' + element.FACULTY + '</div>');
+                    });
+                });
+            })
+
+            $("#post").click(function() {
+                $('#status').css("display","block");
+                $("#status").html('');
+
+                fetch('http://localhost:4000/api/pulpits', {
+                    method: 'POST',
+                    mode: "no-cors",
+                    headers : { 
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(
+                        {
+                            pulpit: $('#PULPIT').val(),
+                            pulpit_name: $('#PULPIT_NAME').val(),
+                            faculty: $('#FACULTY').val()
+                        }
+                    )
+                }).then((response) => {
+                    console.log(response);
+                    return response.json();
+                }).then(pdata => {
+                    $("#status").html('')
+                    $("#status").append(JSON.stringify(pdata));
+                    console.log(JSON.stringify(pdata));
+                })
+            })
+
+            $("#put").click(function() {
+                $('#status').css("display","block");
+                $("#status").html('');
+
+                fetch('http://localhost:4000/api/pulpits', {
+                    method: 'PUT',
+                    headers : { 
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(
+                        {
+                            pulpit: $('#PULPIT').val(),
+                            pulpit_name: $('#PULPIT_NAME').val(),
+                            faculty: $('#FACULTY').val()
+                        }
+                    )
+                }).then((response) => {
+                    console.log(response);
+                    return response.json();
+                }).then(pdata => {
+                    $("#status").html('')
+                    $("#status").append(JSON.stringify(pdata));
+                    console.log(JSON.stringify(pdata));
+                })
+            })
+
+            $("#delete").click(function() {
+                $('#status').css("display","block");
+                $("#status").html('');
+
+                fetch(`http://localhost:4000/api/pulpits/${$('#PULPIT').val()}`, {
+                    method: 'DELETE',
+                    headers : { 
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    }
+                }).then((response) => {
+                    console.log(response);
+                    return response.json();
+                }).then(pdata => {
+                    $("#status").html('')
+                    $("#status").append(JSON.stringify(pdata));
+                    console.log(JSON.stringify(pdata));
+                })
+            })
+        })
+    </script>
+</html>

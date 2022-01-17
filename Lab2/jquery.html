@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>jquery</title>
+</head>
+<body>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script>
+		$(document).ready(function () {
+			$("button").click(function(){
+				$.get("http://localhost:5000/api/name", function(data){
+					$(document.body).append(data);
+				});
+			});
+		});
+	</script>
+	<button>Send query</button>
+</body>
+</html>

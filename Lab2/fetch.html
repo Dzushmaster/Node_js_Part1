@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>fetch</title>
+</head>
+<body>
+	<script type="text/javascript">
+		function printText() {
+			fetch('http://localhost:5000/api/name')
+    		.then(response => response.text())
+    		.then(content => document.getElementById("FIO").innerText = content);
+		}
+	</script>
+	<button onclick="printText()">Write FIO</button>
+	<div id = "FIO"></div>
+</body>
+</html>

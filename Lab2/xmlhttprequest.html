@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>xmlhttprequest</title>
+</head>
+<body>
+	<script type="text/javascript">
+		function printName() {
+		var xhr = new XMLHttpRequest();
+		xhr.open("GET", "http://localhost:5000/api/name", true);
+		xhr.onload = function (e) {
+  			if (xhr.readyState === 4) {
+    			if (xhr.status === 200) {
+      				document.getElementById("FIO").innerHTML = xhr.responseText;
+    			}
+    			else {
+      				console.error(xhr.statusText);
+    			}
+  			}
+		};
+		xhr.send();
+	}
+	</script>
+	<button onclick="printName()">Кнопочка</button>
+	<div id = "FIO"></div>
+</body>
+</html>

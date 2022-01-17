@@ -1,0 +1,37 @@
+schema{
+    query: Query,
+    mutation: Mutation
+}
+type User{
+    id: String!,
+    name: String!,
+    email: String!,
+    password: String!,
+    age: String!
+}
+input userInput{
+    id: String!,
+    name: String!,
+    email: String!,
+    password: String!,
+    age: String!
+}
+type Repository{
+    id: String!,
+    name: String!,
+    ownerId: String!
+}
+type B{
+    id: String!,
+    name: String!,
+    email: String!,
+    password: String!,
+    age: String!,
+    rep: [Repository]
+}
+type Query{
+    users:[B]
+}
+type Mutation{
+    createUser(user:userInput!) : String
+}

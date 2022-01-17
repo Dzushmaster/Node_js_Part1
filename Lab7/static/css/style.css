@@ -1,0 +1,12 @@
+@charset "utf-8";
+body{
+    background-color: plum;
+}
+img{
+    width: 250px;
+    height: 250px;
+}
+video{
+    width: 640px;
+    height: 360px;
+}
